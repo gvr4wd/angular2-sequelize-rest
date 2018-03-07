@@ -1,0 +1,11 @@
+environment: dev
+api:
+  port: 3000
+db:
+  username: root
+  password:
+  database: test
+  host: localhost
+  dialect: mysql
+  wipe: true
+  logging: false

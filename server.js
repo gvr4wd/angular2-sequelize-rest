@@ -1,10 +1,10 @@
 'use strict';
 
 const express    = require('express');
-const swagger    = require('./lib/swagger');
+const swagger    = require('./server/lib/swagger');
 const bodyParser = require('body-parser');
-const db         = require('./app/models');
-const config     = require('./lib/config')();
+const db         = require('./server/app/models');
+const config     = require('./server/lib/config')();
 
 const app        = express();
 
@@ -43,4 +43,4 @@ app.listen(config.api.port, () => {
 });
 
 // load API routes
-require('./app/controllers')(app);
+require('./server/app/controllers')(app);

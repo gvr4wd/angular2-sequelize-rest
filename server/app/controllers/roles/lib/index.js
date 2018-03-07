@@ -2,22 +2,22 @@
 
 const appRoot = require('app-root-path');
 
-const db      = require(`${appRoot}/app/models`);
+const db      = require(`${appRoot}/server/app/models`);
 const Promise = require('bluebird');
 
 /**
- * Class that represents products orchestration trough database
+ * Class that represents roles orchestration trough database
  */
-class Products {
+class Roles {
   /**
-   * Adds a product to database
+   * Adds a role to database
    *
-   * @param {Object} product - product JSON object
+   * @param {Object} role - role JSON object
    */
-  add(product) {
+  add(role) {
     return new Promise((resolve, reject) => {
-      db.Product
-        .create(product)
+      db.Role
+        .create(role)
         .then((res) => {
           resolve(res);
         })
@@ -28,14 +28,14 @@ class Products {
   }
 
   /**
-   * List all products from database
+   * List all roles from database
    *
    * @returns {Array}
    */
   list() {
     return new Promise((resolve, reject) => {
-      db.Product
-        .findAll()
+      db.Role
+        .findAll({order: [['id', 'DESC']]})
         .then((res) => {
           resolve(res);
         })
@@ -46,17 +46,17 @@ class Products {
   }
 
   /**
-   * Get a specific product
+   * Get a specific role
    *
-   * @param {Integer} id - product id
+   * @param {Integer} id - role id
    * @returns {Object}
    */
-  get(productId) {
+  get(roleId) {
     return new Promise((resolve, reject) => {
-      db.Product
+      db.Role
         .findOne({
           where : {
-            id : productId
+            id : roleId
           }
         })
         .then((res) => {
@@ -69,16 +69,16 @@ class Products {
   }
 
   /**
-   * Removes a product from database
+   * Removes a role from database
    *
-   * @param {Integer} id - product id
+   * @param {Integer} id - role id
    */
-  remove(productId) {
+  remove(roleId) {
     return new Promise((resolve, reject) => {
-      db.Product
+      db.Role
         .destroy({
           where : {
-            id : productId
+            id : roleId
           }
         })
         .then((res) => {
@@ -91,16 +91,16 @@ class Products {
   }
 
   /**
-   * Update a specific product on database
+   * Update a specific role on database
    *
-   * @param {Integer} id - product id
+   * @param {Integer} id - role id
    */
-  update(productId, data) {
+  update(roleId, data) {
     return new Promise((resolve, reject) => {
-      db.Product
+      db.Role
         .update(data, {
           where : {
-            id : productId
+            id : roleId
           }
         })
         .then((res) => {
@@ -113,4 +113,4 @@ class Products {
   }
 }
 
-module.exports = Products;
+module.exports = Roles;

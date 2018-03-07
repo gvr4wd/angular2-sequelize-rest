@@ -8,8 +8,8 @@ const assign = Object.assign;
 const config = () => {
   const env = process.env.NODE_ENV || 'local';
 
-  const global    = yaml.safeLoad(fs.readFileSync('./config/config.yml', 'utf8'));
-  const envConfig = yaml.safeLoad(fs.readFileSync(`./config/config_${env}.yml`, 'utf8'));
+  const global    = yaml.safeLoad(fs.readFileSync('./server/config/config.yml', 'utf8'));
+  const envConfig = yaml.safeLoad(fs.readFileSync(`./server/config/config_${env}.yml`, 'utf8'));
 
   return assign(global, envConfig);
 };

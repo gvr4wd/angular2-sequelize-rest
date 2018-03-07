@@ -1,6 +1,6 @@
 'use strict';
 
-const Products = require('../lib');
+const Products = require('../lib/index');
 
 const products = new Products();
 
