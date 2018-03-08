@@ -47,19 +47,21 @@ module.exports = (sequelize, DataTypes) => {
         this.setDataValue('jwtToken', val);
       }
     }
+  }, {
+    tableName: 'users'
   });
 
   // Association
   model.associate = function (models) {
-    model.belongsToMany(models.Role, {through: models.UserRole, as: 'roles' });
-    model.belongsToMany(models.Group, {through: models.UserGroup, as: 'groups' });
+    model.belongsToMany(models.Role, {through: models.UserRole, as: 'roles'});
+    model.belongsToMany(models.Group, {through: models.UserGroup, as: 'groups'});
   }
 
   // Compares two passwords.
   model.prototype.comparePasswords = function (password, callback) {
-    console.log ('comparePasswords()');
-    bcrypt.compare(password, this.password, function(error, isMatch) {
-      if(error) {
+    console.log('comparePasswords()');
+    bcrypt.compare(password, this.password, function (error, isMatch) {
+      if (error) {
         return callback(error);
       }
       return callback(null, isMatch);
@@ -68,13 +70,13 @@ module.exports = (sequelize, DataTypes) => {
 
   // Compares two passwords.
   model.prototype.setJwtToken = function (jwtToken) {
-    console.log ('setJwtToken()');
+    console.log('setJwtToken()');
     this.jwtToken = jwtToken;
   };
 
   // check role
   model.prototype.checkRole = function (role) {
-    console.log ('checkRole()');
+    console.log('checkRole()');
     for (let i = 0; i < this.roles.length; i++) {
       if (this.roles[i].role.toLowerCase() === role.toLowerCase()) {
         return true;
@@ -85,9 +87,9 @@ module.exports = (sequelize, DataTypes) => {
 
   // Hashes the password for a user object.
   model.hook('beforeValidate', (user, options) => {
-    console.log ('hashPassowrd()');
-    if(user.changed('password')) {
-      return bcrypt.hash(user.password, 10).then(function(password) {
+    console.log('hashPassowrd()');
+    if (user.changed('password')) {
+      return bcrypt.hash(user.password, 10).then(function (password) {
         user.password = password;
       });
     }
