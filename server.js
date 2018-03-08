@@ -5,6 +5,7 @@ const swagger    = require('./server/lib/swagger');
 const bodyParser = require('body-parser');
 const db         = require('./server/app/models');
 const config     = require('./server/lib/config')();
+const sequelizeFixtures = require('sequelize-fixtures');
 
 const app        = express();
 
@@ -16,6 +17,12 @@ app.set('port', config.api.port);
 db.sequelize.sync({ force : config.db.wipe }).then(() => {
   console.log('Database synced' +  // eslint-disable-line no-console
     `${config.db.wipe ? ' - data it\'s wiped & schema recreated' : ''}`);
+  // from file
+  sequelizeFixtures.loadFiles(['./server/fixtures/users.json', './server/fixtures/groups.json',
+    './server/fixtures/roles.json'], db).then(function(){
+    console.log('test data loaded');
+  });
+
 });
 
 // body parser

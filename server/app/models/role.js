@@ -1,24 +1,24 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-    const model = sequelize.define('Role', {
-        id: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        role: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-    }, {
-      tableName: 'roles'
-    });
+  const model = sequelize.define('Role', {
+    id: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+  }, {
+    tableName: 'roles'
+  });
 
-    model.associate = function (models) {
-        model.belongsToMany(models.User, {through: models.UserRole, as: 'users'});
-    }
+  model.associate = function (models) {
+    model.belongsToMany(models.User, { through: models.UserRole, as: 'users' });
+  }
 
-    return model;
+  return model;
 };

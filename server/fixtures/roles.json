@@ -1,0 +1,42 @@
+[
+  {
+    "model": "Role",
+    "data": {
+      "id": "1",
+      "role": "admin",
+      "createdAt": "0000-00-00 00:00:00",
+      "updatedAt": "0000-00-00 00:00:00",
+      "users": [1]
+    }
+  },
+  {
+    "model": "Role",
+    "data": {
+      "id": "2",
+      "role": "manager",
+      "createdAt": "0000-00-00 00:00:00",
+      "updatedAt": "0000-00-00 00:00:00",
+      "users": [1]
+    }
+  },
+  {
+    "model": "Role",
+    "data": {
+      "id": "3",
+      "role": "user",
+      "createdAt": "0000-00-00 00:00:00",
+      "updatedAt": "0000-00-00 00:00:00",
+      "users": [1]
+    }
+  },
+  {
+    "model": "Role",
+    "data": {
+      "id": "4",
+      "role": "analyst",
+      "createdAt": "0000-00-00 00:00:00",
+      "updatedAt": "0000-00-00 00:00:00",
+      "users": [1]
+    }
+  }
+]

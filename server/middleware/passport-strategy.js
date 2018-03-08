@@ -3,10 +3,10 @@
  */
 'use strict';
 
-let JWTStrategy = require('passport-jwt').Strategy,
-  ExtractJwt = require('passport-jwt').ExtractJwt;
+const JWTStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 
-let db = require('./../models');
+const db = require('../app/models');
 // config = require('./../config');
 
 const config = require('./../lib/config')();
@@ -14,25 +14,26 @@ const config = require('./../lib/config')();
 // Hooks the JWT Strategy.
 function hookJWTStrategy(passport) {
   // TODO: Set up Passport to use the JWT Strategy.
-  var options = {};
+  const options = {};
 
   options.secretOrKey = config.keys.secret;
-  options.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme("jwt");
+  options.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
   options.ignoreExpiration = false;
 
-  passport.use(new JWTStrategy(options, function (JWTPayload, callback) {
+  passport.use(new JWTStrategy(options, (JWTPayload, callback) => {
     console.log('hookJWTStrategy()');
     db.User.findOne({
-      where: {login: JWTPayload.login},
-      include: [{all: true}]
+      where: { login: JWTPayload.login },
+      include: [{ all: true }]
     })
-      .then(function (user) {
+      .then(user => {
         if (!user) {
           callback(null, false);
           return;
         }
 
         callback(null, user);
+        return;
       });
   }));
 }

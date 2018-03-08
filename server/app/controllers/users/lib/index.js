@@ -1,5 +1,6 @@
 'use strict';
 
+const Sequelize = require('sequelize');
 const appRoot = require('app-root-path');
 
 const db = require(`${appRoot}/server/app/models`);

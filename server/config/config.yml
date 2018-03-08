@@ -13,3 +13,6 @@ swagger:
     - "application/json"
   produces:
     - "application/json"
+keys:
+  secret: '/jVdfUX+u/Kn3qPY4+ahjwQgyV5UhkM5cdh1i2xhozE='
+  expiresIn: '24h'

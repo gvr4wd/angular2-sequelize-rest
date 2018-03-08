@@ -53,14 +53,14 @@ module.exports = (sequelize, DataTypes) => {
 
   // Association
   model.associate = function (models) {
-    model.belongsToMany(models.Role, {through: models.UserRole, as: 'roles'});
-    model.belongsToMany(models.Group, {through: models.UserGroup, as: 'groups'});
+    model.belongsToMany(models.Role, { through: models.UserRole, as: 'roles' });
+    model.belongsToMany(models.Group, { through: models.UserGroup, as: 'groups' });
   }
 
   // Compares two passwords.
   model.prototype.comparePasswords = function (password, callback) {
     console.log('comparePasswords()');
-    bcrypt.compare(password, this.password, function (error, isMatch) {
+    bcrypt.compare(password, this.password, (error, isMatch) => {
       if (error) {
         return callback(error);
       }
@@ -87,12 +87,13 @@ module.exports = (sequelize, DataTypes) => {
 
   // Hashes the password for a user object.
   model.hook('beforeValidate', (user, options) => {
-    console.log('hashPassowrd()');
+    // console.log('hashPassowrd()');
     if (user.changed('password')) {
       return bcrypt.hash(user.password, 10).then(function (password) {
         user.password = password;
       });
     }
+    return;
   });
 
   return model;

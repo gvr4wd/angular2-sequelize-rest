@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   model.associate = function (models) {
-    model.belongsToMany(models.User, {through: models.UserGroup, as: 'users'});
+    model.belongsToMany(models.User, { through: models.UserGroup, as: 'users' });
   }
 
   return model;
