@@ -144,53 +144,6 @@ module.exports = (app, passport, logger) => {
   /**
    * @swagger
    * /api/users/login:
-   *   get:
-   *     summary: login as a user
-   *     description: login as a user
-   *     tags:
-   *       - Users
-   *     produces:
-   *       - application/json
-   *     parameters:
-   *       - name: login
-   *         in: query
-   *         description: "user login"
-   *         required: true
-   *         type: string
-   *       - name: password
-   *         in: query
-   *         description: "user password"
-   *         required: true
-   *         type: string
-   *     responses:
-   *       200:
-   *         description: "successful operation"
-   *         schema:
-   *           "$ref": "#/definitions/User"
-   *       404:
-   *         description: "not found"
-   *       400:
-   *         description: "bad request"
-   */
-  app.get('/api/users/login', (req, res) => {
-    logger.info('login requested - ' + req.query.login + ' - ' + req.query.password)
-    users
-      .login(req.query.login, req.query.password)
-      .then((data) => {
-        if (data <= 0) {
-          res.sendStatus(404);
-        } else {
-          res.send(data);
-        }
-      })
-      .catch((error) => {
-        res.status(400).send(error);
-      });
-  });
-
-  /**
-   * @swagger
-   * /api/users/login:
    *   post:
    *     summary: login
    *     description: login
@@ -211,8 +164,8 @@ module.exports = (app, passport, logger) => {
    */
   app.post('/api/users/login', (req, res) => {
     logger.info('login requested - ' + req.body.login + ' - ' + req.body.password);
-    let login = req.body.login;
-    let password = req.body.password;
+    const login = req.body.login;
+    const password = req.body.password;
     if (!login || !password) {
       res.status(404).send({message: 'login and password are required!'});
     } else {

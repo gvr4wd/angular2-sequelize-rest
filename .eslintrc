@@ -6,6 +6,7 @@
     "mocha" : true
   },
   "rules"   : {
+    "prefer-template": 0,
     "brace-style"                       : [
       2,
       "1tbs",
