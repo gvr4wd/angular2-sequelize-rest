@@ -4,19 +4,19 @@ const Sequelize = require('sequelize');
 const appRoot   = require('app-root-path');
 const walkSync = require('walk-sync');
 
-const config = require(`${appRoot}/server/lib/config`)();
+const config = require(`${appRoot}/lib/config`)();
 
 const db = {};
 
 const sequelize = new Sequelize(config.db);
 
-const paths = walkSync(`${appRoot}/server/app/models`, {
+const paths = walkSync(`${appRoot}/app/models`, {
   globs  : ['**/*.js'],
   ignore : ['index.js']
 });
 
 paths.forEach((file) => {
-  const model    = sequelize.import(`${appRoot}/server/app/models/${file}`);
+  const model    = sequelize.import(`${appRoot}//app/models/${file}`);
   db[model.name] = model;
 });
 

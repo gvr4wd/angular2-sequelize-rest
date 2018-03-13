@@ -2,7 +2,7 @@
 
 const appRoot = require('app-root-path');
 
-const db      = require(`${appRoot}/server/app/models`);
+const db      = require(`${appRoot}/app/models`);
 const Promise = require('bluebird');
 
 /**
