@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 'use strict';
 
 const express = require('express');
@@ -6,11 +7,25 @@ const bodyParser = require('body-parser');
 const db = require('./app/models/index');
 const config = require('./lib/config')();
 const sequelizeFixtures = require('sequelize-fixtures');
+const appRoot   = require('app-root-path');
 
 const app = express();
 
 // logger
-const logger = require('./logger/logger');
+const winston = require('winston');
+const logger = require('./middleware/logger');
+const expressWinston = require('express-winston');
+
+// express-winston for debugging express
+app.use(expressWinston.logger({
+  transports: [
+    new winston.transports.Console({
+      json: false,
+      colorize: true
+    })
+  ]
+}));
+
 
 logger.level = 'debug';
 logger.info('staring application....');
@@ -29,7 +44,7 @@ db.sequelize.sync({force: config.db.wipe}).then(() => {
     './fixtures/users.json',
     './fixtures/groups.json',
     './fixtures/roles.json'];
-  sequelizeFixtures.loadFiles(fixtureFiles, db).then(function () {
+  sequelizeFixtures.loadFiles(fixtureFiles, db).then(() => {
     logger.debug('test data loaded');
   });
 });
@@ -51,7 +66,9 @@ app.use((req, res, next) => {
 
 // init swagger
 if (config.environment === 'local' || config.environment === 'dev') {
+  logger.info('loading swagger...');
   swagger(app);
+  logger.info('swagger loaded');
 }
 
 // init server
@@ -61,3 +78,21 @@ app.listen(config.api.port, () => {
 
 // load API routes
 require('./app/controllers/index')(app);
+
+
+///////////// serving web application stuff from dist folder
+// Point static path to dist
+app.use(express.static(`${appRoot}/dist`));
+
+// Catch all other routes and return the index file, this serves the Angular APP
+app.get('*', (req, res) => {
+  logger.info('no API match found! sending index.html');
+  res.sendFile(`${appRoot}/dist/index.html`);
+});
+
+// print all routes
+app._router.stack.forEach((r) => {
+  if (r.route && r.route.path) {
+    logger.info(r.route.path);
+  }
+});

@@ -42,7 +42,8 @@
     "prefer-rest-params"                : 0,
     "strict"                            : 0,
     "import/no-extraneous-dependencies" : "off",
-    "react/require-extension"           : "off"
+    "react/require-extension"           : "off",
+    "linebreak-style":"off"
   },
   "globals" : {
     "AnalysisView" : true,
