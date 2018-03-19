@@ -6,6 +6,7 @@ import {
   FullLayoutComponent,
   SimpleLayoutComponent
 } from './containers';
+import {AuthGuard} from './services/auth-guard.service';
 
 export const routes: Routes = [
   {
@@ -19,6 +20,7 @@ export const routes: Routes = [
     data: {
       title: 'Home'
     },
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'base',
@@ -54,6 +56,32 @@ export const routes: Routes = [
       }
     ]
   },
+  {
+    path: 'login',
+    component: SimpleLayoutComponent,
+    data: {
+      title: 'Login'
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/login/login.module#LoginModule',
+      }
+    ]
+  },
+  // {
+  //   path: 'register',
+  //   component: SimpleLayoutComponent,
+  //   data: {
+  //     title: 'Register'
+  //   },
+  //   children: [
+  //     {
+  //       path: '',
+  //       loadChildren: './views/register/register.module#RegisterModule',
+  //     }
+  //   ]
+  // },
   {
     path: 'pages',
     component: SimpleLayoutComponent,
