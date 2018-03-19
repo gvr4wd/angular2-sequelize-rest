@@ -64,9 +64,13 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import {AuthGuard} from './services/auth-guard.service';
+import {AuthService} from './services/auth.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
@@ -80,10 +84,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     ...APP_DIRECTIVES
   ],
   providers: [
-  //   {
-  //   provide: LocationStrategy,
-  //   useClass: HashLocationStrategy
-  // }
+    AuthGuard,
+    AuthService
   ],
   bootstrap: [ AppComponent ]
 })
