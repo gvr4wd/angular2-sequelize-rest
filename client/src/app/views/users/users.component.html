@@ -1,0 +1,91 @@
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-header">
+      <i class="fa fa-align-justify"></i><strong>Users</strong>
+
+      <button class="btn btn-primary float-right">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Add
+      </button>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped" [mfData]="users" #mf="mfDataTable"
+             [mfRowsOnPage]="10">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Login</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Groups</th>
+          <th>Roles</th>
+          <th>Permissions</th>
+          <th width="200">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of mf.data">
+          <td>
+            <img src="assets/avatars/{{user.avatar}}" class="img-avatar avatar" alt="avatar"/>
+          </td>
+          <td>{{user.login}}</td>
+          <td>{{user.firstName}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.email}}</td>
+          <td>
+            <div *ngFor="let group of user.groups">
+                        <span class="badge badge-info">
+                            {{ group.groupName }}
+                        </span>
+            </div>
+          </td>
+          <td>{{user.roles}}</td>
+          <!--<td>{{user.permissions}}</td>-->
+          <td>
+            <div *ngFor="let permission of user.permissions">
+                        <span class="badge badge-primary">
+                            {{ permission.permission }}
+                        </span>
+            </div>
+          </td>
+          <td>
+            <!-- Indicates a successful or positive action -->
+            <button type="button" class="btn btn-success btn-circle"><i class="fa fa-pencil-square-o"
+                                                                        aria-hidden="true"></i>
+            </button>
+
+            <!-- Contextual button for informational alert messages -->
+            <button type="button" class="btn btn-info btn-circle"><i class="fa fa-info"
+                                                                     aria-hidden="true"></i>
+            </button>
+
+            <!-- Indicates caution should be taken with this action -->
+            <button type="button" class="btn btn-warning btn-circle"><i class="fa fa-exclamation-triangle"
+                                                                        aria-hidden="true"></i>
+            </button>
+
+            <!-- Indicates a dangerous or potentially negative action -->
+            <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-minus"
+                                                                       aria-hidden="true"></i>
+            </button>
+
+            <!-- Deemphasize a button by making it look like a link while maintaining button behavior -->
+            <button type="button" class="btn btn-secondary btn-circle"><i class="fa fa-link"
+                                                                          aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="8">
+            <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50]"></mfBootstrapPaginator>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
