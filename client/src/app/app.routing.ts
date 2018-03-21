@@ -7,6 +7,7 @@ import {
   SimpleLayoutComponent
 } from './containers';
 import {AuthGuard} from './services/auth-guard.service';
+import {HeaderLayoutComponent} from './containers/header-layout';
 
 export const routes: Routes = [
   {
@@ -66,6 +67,19 @@ export const routes: Routes = [
       {
         path: '',
         loadChildren: './views/login/login.module#LoginModule',
+      }
+    ]
+  },
+  {
+    path: 'users',
+    component: HeaderLayoutComponent,
+    data: {
+      title: 'Users'
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/users/users.module#UsersModule',
       }
     ]
   },
