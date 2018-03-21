@@ -43,7 +43,7 @@
     "nodemon": "^1.9.2"
   },
   "scripts": {
-    "start": "./scripts/start.sh",
+    "start": "nodemon -V -e 'js,yml,json' server.js",
     "test": "mocha ./test/runner.js",
     "eslint": "eslint .",
     "jsinspect": "jsinspect -t 30 -i ./app/ ./lib/"

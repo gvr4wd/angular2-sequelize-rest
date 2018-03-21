@@ -65,8 +65,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import {AuthGuard} from './services/auth-guard.service';
-import {AuthService} from './services/auth.service';
 import {HttpClientModule} from '@angular/common/http';
+import {UserService} from './services/user.service';
 
 @NgModule({
   imports: [
@@ -85,7 +85,7 @@ import {HttpClientModule} from '@angular/common/http';
   ],
   providers: [
     AuthGuard,
-    AuthService
+    UserService
   ],
   bootstrap: [ AppComponent ]
 })

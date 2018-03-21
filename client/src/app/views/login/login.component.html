@@ -7,6 +7,11 @@
             <div class="card-body">
               <h1><img src="/assets/img/angular.svg" alt="Logo" width="75"> Login</h1>
               <p class="text-muted">Sign In to your account</p>
+
+              <alert type="danger" *ngIf="loginError">
+                <strong>Login Error</strong> {{ loginError }}
+              </alert>
+
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="icon-user"></i></span>
@@ -21,7 +26,7 @@
               </div>
               <div class="row">
                 <div class="col-6">
-                  <button type="button" class="btn btn-primary px-4">Login</button>
+                  <button type="button" class="btn btn-primary px-4" (click)="login()">Login</button>
                 </div>
                 <div class="col-6 text-right">
                   <button type="button" class="btn btn-link px-0">Forgot password?</button>
@@ -33,7 +38,7 @@
             <div class="card-body text-center">
               <div>
                 <h2>Sign up</h2>
-                <p>If you don't have an account, please register for an account to use Cyber Thereat Intelligence(CTI) Application.</p>
+                <p>If you don't have an account, please register for an account to use Web Application.</p>
                 <a type="button" class="btn btn-primary active mt-3" style="color: #343434" routerLink="/register">Register Now!</a>
               </div>
             </div>

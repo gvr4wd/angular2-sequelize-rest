@@ -4,7 +4,6 @@ import {User} from '../models/user';
 import 'rxjs/add/operator/toPromise';
 import {BaseService} from './base.service';
 import {Observable} from 'rxjs/Observable';
-import {AuthService} from './auth.service';
 import {UserNotification} from '../models';
 import {HttpClient} from '@angular/common/http';
 
@@ -15,8 +14,7 @@ export class UserService extends BaseService {
   // store the URL so we can redirect after logging in
   redirectUrl: string;
 
-  constructor(protected http: HttpClient,
-              private authService: AuthService) {
+  constructor(protected http: HttpClient) {
     super(http);
   }
 
@@ -42,7 +40,7 @@ export class UserService extends BaseService {
         const body: any = resp;
 
         console.log('update successful - ' + body);
-        let currentUser: User = this.authService.getCurrentUser();
+        let currentUser: User = this.getCurrentUser();
         if (currentUser.id === user.id) {
           console.debug('updated current user, set info to current session');
           sessionStorage.setItem('cti-user', JSON.stringify(user));
@@ -92,4 +90,39 @@ export class UserService extends BaseService {
       .catch(this.handleError);
   }
 
+  login(user: User): Promise<User> {
+    this.isLoggedIn = false;
+    return this.http.post('api/users/login', user)
+      .toPromise()
+      .then(resp => {
+        const body = resp;
+        // store in session storage
+        let user: User = User.parseJson(resp);
+        console.log('setting user - ', user);
+        sessionStorage.setItem('cti-user', JSON.stringify(user));
+        this.isLoggedIn = true;
+        return user;
+      })
+      .catch(this.handleError);
+  }
+
+  getCurrentUser(): User {
+    let user = JSON.parse(sessionStorage.getItem('cti-user'));
+    return User.parseJson(user);
+  }
+
+  logout(): void {
+    this.isLoggedIn = false;
+    sessionStorage.removeItem('cti-user');
+  }
+
+  isInSession(): boolean {
+    if (sessionStorage.getItem('cti-user')) {
+      console.log('user is logged in');
+      return true;
+    } else {
+      console.log('user is not logged in');
+      return false;
+    }
+  }
 }
