@@ -8,6 +8,9 @@ const db = require('./app/models/index');
 const config = require('./lib/config')();
 const sequelizeFixtures = require('sequelize-fixtures');
 const appRoot   = require('app-root-path');
+// passport config
+const passport = require('passport');
+const hookJWTStrategy = require('./middleware/passport-strategy');
 
 const app = express();
 
@@ -26,6 +29,8 @@ app.use(expressWinston.logger({
   ]
 }));
 
+app.use(passport.initialize());
+hookJWTStrategy(passport);
 
 logger.level = 'debug';
 logger.info('staring application....');
@@ -77,7 +82,7 @@ app.listen(config.api.port, () => {
 });
 
 // load API routes
-require('./app/controllers/index')(app);
+require('./app/controllers/index')(app, passport, logger);
 
 
 ///////////// serving web application stuff from dist folder

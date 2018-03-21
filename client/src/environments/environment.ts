@@ -3,6 +3,8 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
+// $2a$10$a/l7KZylaTQCCaKvQPxV7.wvLqG.8IK0LvVQ.kWLiFzGqJ/gST1se
+
 export const environment = {
   production: false,
   USERNAME: 'James.T.Kirk',

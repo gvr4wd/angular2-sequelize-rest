@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Logger} from '../shared/logger';
 
 @Injectable()
 export class BaseService {
@@ -15,6 +16,7 @@ export class BaseService {
     object: any;
 
     constructor(protected http: HttpClient = null,
+                protected logger: Logger,
                 protected className: string = null) {
         // constructor() {
         // this.object = new

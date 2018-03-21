@@ -67,6 +67,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import {AuthGuard} from './services/auth-guard.service';
 import {HttpClientModule} from '@angular/common/http';
 import {UserService} from './services/user.service';
+import {LOG_LOGGER_PROVIDERS, Logger} from './shared/logger';
 
 @NgModule({
   imports: [
@@ -84,6 +85,10 @@ import {UserService} from './services/user.service';
     ...APP_DIRECTIVES
   ],
   providers: [
+    // Logger
+    Logger,
+    LOG_LOGGER_PROVIDERS,
+
     AuthGuard,
     UserService
   ],

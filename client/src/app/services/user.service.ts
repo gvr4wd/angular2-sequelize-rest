@@ -6,6 +6,7 @@ import {BaseService} from './base.service';
 import {Observable} from 'rxjs/Observable';
 import {UserNotification} from '../models';
 import {HttpClient} from '@angular/common/http';
+import {Logger} from '../shared/logger';
 
 @Injectable()
 export class UserService extends BaseService {
@@ -14,8 +15,8 @@ export class UserService extends BaseService {
   // store the URL so we can redirect after logging in
   redirectUrl: string;
 
-  constructor(protected http: HttpClient) {
-    super(http);
+  constructor(protected http: HttpClient, logger: Logger) {
+    super(http, logger);
   }
 
   getUsers(): Observable<User[]> {
@@ -26,23 +27,23 @@ export class UserService extends BaseService {
         for (let i = 0; i < body.length; i++) {
           users.push(User.parseJson(body[i]));
         }
-        console.log('got users ', users);
+        this.logger.info('got users ', users);
         return users;
       });
   }
 
   updatePreference(user: User): Promise<any> {
     user.setPreferenceStr();
-    console.debug('updating preferences - ', user.preferenceStr);
+    this.logger.debug('updating preferences - ', user.preferenceStr);
     return this.http.patch('/api/users/' + user.id, user)
       .toPromise()
       .then(resp => {
         const body: any = resp;
 
-        console.log('update successful - ' + body);
+        this.logger.info('update successful - ' + body);
         let currentUser: User = this.getCurrentUser();
         if (currentUser.id === user.id) {
-          console.debug('updated current user, set info to current session');
+          this.logger.debug('updated current user, set info to current session');
           sessionStorage.setItem('cti-user', JSON.stringify(user));
         }
 
@@ -98,7 +99,7 @@ export class UserService extends BaseService {
         const body = resp;
         // store in session storage
         let user: User = User.parseJson(resp);
-        console.log('setting user - ', user);
+        this.logger.info('setting user - ', user);
         sessionStorage.setItem('cti-user', JSON.stringify(user));
         this.isLoggedIn = true;
         return user;
@@ -118,10 +119,10 @@ export class UserService extends BaseService {
 
   isInSession(): boolean {
     if (sessionStorage.getItem('cti-user')) {
-      console.log('user is logged in');
+      this.logger.info('user is logged in');
       return true;
     } else {
-      console.log('user is not logged in');
+      this.logger.info('user is not logged in');
       return false;
     }
   }
