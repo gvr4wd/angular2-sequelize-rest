@@ -1,1 +1,55 @@
 // Here you can add other styles
+.btn-circle {
+  width: 30px !important;
+  height: 30px !important;
+  text-align: center !important;
+  padding: 6px 0 !important;
+  font-size: 12px !important;
+  line-height: 1.428571429 !important;
+  border-radius: 15px !important;
+}
+
+.btn {
+  width: 100px;
+}
+
+.btn-add-circle {
+  @extend .btn, .btn-success, .btn-circle;
+  &:after {
+    font-family: 'FontAwesome';
+    content: '\f067'; // fa-plus
+  }
+}
+
+.btn-edit-circle {
+  @extend .btn, .btn-primary, .btn-circle;
+  &:after {
+    font-family: 'FontAwesome';
+    content: '\f044'; // fa-pencil-square-o
+  }
+}
+
+.btn-delete-circle {
+  @extend .btn, .btn-danger, .btn-circle;
+  &:after {
+    font-family: 'FontAwesome';
+    content: '\f00d'; // fa-close
+  }
+}
+
+.btn-warning-problem-edit {
+  @extend .btn, .btn-outline-primary, .btn-sm;
+  &:before {
+    font-family: 'FontAwesome';
+    content: '\f044'; // fa-close
+  }
+}
+
+.btn-warning-problem-alert {
+  @extend .btn, .btn-danger, .btn-sm;
+  color: whitesmoke!important;
+  &:before {
+    font-family: 'FontAwesome';
+    content: '\f071'; // fa-close
+  }
+}

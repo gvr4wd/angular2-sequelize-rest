@@ -64,7 +64,11 @@ export class Preference {
     constructor (preferenceStr: string) {
         let preferenceObj: any;
         if (typeof preferenceStr === 'string') {
+          try {
             preferenceObj= JSON.parse(preferenceStr);
+          } catch (error) {
+            console.error ('error parsing preferenceStr');
+          }
         } else {
             preferenceObj = preferenceStr;
         }
