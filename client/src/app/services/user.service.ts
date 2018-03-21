@@ -7,6 +7,7 @@ import {Observable} from 'rxjs/Observable';
 import {UserNotification} from '../models';
 import {HttpClient} from '@angular/common/http';
 import {Logger} from '../shared/logger';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class UserService extends BaseService {
@@ -14,6 +15,7 @@ export class UserService extends BaseService {
 
   // store the URL so we can redirect after logging in
   redirectUrl: string;
+  private authenticationState = new Subject<any>();
 
   constructor(protected http: HttpClient, logger: Logger) {
     super(http, logger);
@@ -125,5 +127,32 @@ export class UserService extends BaseService {
       this.logger.info('user is not logged in');
       return false;
     }
+  }
+
+
+  hasAnyAuthorityDirect(authorities: string[]): boolean {
+    if (!this.isInSession()) {
+      return false;
+    }
+    const user: User = this.getCurrentUser();
+    for (let i = 0; i < authorities.length; i++) {
+      if (user.hasRole(authorities[i])) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  hasAnyAuthority(authorities: string[]): Promise<boolean> {
+    return Promise.resolve(this.hasAnyAuthorityDirect(authorities));
+  }
+
+  authenticate(identity) {
+    const user: User = this.getCurrentUser();
+    this.authenticationState.next(user);
+  }
+
+  getAuthenticationState(): Observable<any> {
+    return this.authenticationState.asObservable();
   }
 }
