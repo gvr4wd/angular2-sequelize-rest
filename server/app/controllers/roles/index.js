@@ -14,7 +14,7 @@ const roles = new Roles();
  *     properties:
  *       id:
  *         type: integer
- *       role:
+ *       roleName:
  *         type: string
  */
 module.exports = (app, passport, logger) => {

@@ -33,15 +33,32 @@
           <td>{{user.firstName}}</td>
           <td>{{user.lastName}}</td>
           <td>{{user.email}}</td>
-          <td>
+          <ng-template #groupsTemplate>
             <div *ngFor="let group of user.groups">
                         <span class="badge badge-info">
                             {{ group.groupName }}
                         </span>
             </div>
+          </ng-template>
+          <td>
+            <button type="button" class="btn btn-success btn-circle"
+                    [popover]="groupsTemplate" placement="right" triggers="focus">
+              {{user.groups.length}}
+            </button>
           </td>
-          <td>{{user.roles}}</td>
-          <!--<td>{{user.permissions}}</td>-->
+          <ng-template #rolesTemplate>
+            <div *ngFor="let role of user.roles">
+                        <span class="badge badge-info">
+                            {{ role.roleName }}
+                        </span>
+            </div>
+          </ng-template>
+          <td>
+            <button type="button" class="btn btn-primary btn-circle"
+                    [popover]="rolesTemplate" placement="right" triggers="focus">
+              {{user.roles.length}}
+            </button>
+          </td>
           <td>
             <div *ngFor="let permission of user.permissions">
                         <span class="badge badge-primary">
