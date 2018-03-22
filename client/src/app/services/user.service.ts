@@ -155,4 +155,11 @@ export class UserService extends BaseService {
   getAuthenticationState(): Observable<any> {
     return this.authenticationState.asObservable();
   }
+
+  getUser(id: any): Promise<any> {
+    this.logger.debug ('getUser()');
+    return this.http.get<User>('api/users/' + id).toPromise()
+      .then((resp) => resp)
+      .catch(this.handleError);
+  }
 }

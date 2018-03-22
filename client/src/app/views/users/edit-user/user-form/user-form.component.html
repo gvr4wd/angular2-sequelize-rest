@@ -1,0 +1,15 @@
+<form [formGroup]="userForm">
+  <div class="form-group">
+    <label class="center-block">First Name:
+      <input class="form-control" formControlName="firstName">
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="center-block">Last Name:
+      <input class="form-control" formControlName="lastName">
+    </label>
+  </div>
+</form>
+<p>Form value: {{ userForm.value | json }}</p>
+<p>Form status: {{ userForm.status | json }}</p>
+<!--<p>Form status: {{ user | json }}</p>-->
