@@ -1,5 +1,11 @@
 // Here you can add other styles
+
+.btn {
+  min-width: 100px;
+}
+
 .btn-circle {
+  min-width: 30px;
   width: 30px !important;
   height: 30px !important;
   text-align: center !important;
@@ -7,10 +13,6 @@
   font-size: 12px !important;
   line-height: 1.428571429 !important;
   border-radius: 15px !important;
-}
-
-.btn {
-  width: 100px;
 }
 
 .btn-add-circle {
@@ -52,4 +54,8 @@
     font-family: 'FontAwesome';
     content: '\f071'; // fa-close
   }
+}
+
+.logo {
+  width: 100px;
 }

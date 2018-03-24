@@ -70,6 +70,7 @@ import {AuthGuard} from './services/auth-guard.service';
 import {HttpClientModule} from '@angular/common/http';
 import {UserService} from './services/user.service';
 import {LOG_LOGGER_PROVIDERS, Logger} from './shared/logger';
+import {PageNotFoundComponent} from './views/page-not-found/page-not-found.component';
 
 @NgModule({
   imports: [
@@ -84,7 +85,8 @@ import {LOG_LOGGER_PROVIDERS, Logger} from './shared/logger';
     AppComponent,
     ...APP_CONTAINERS,
     ...APP_COMPONENTS,
-    ...APP_DIRECTIVES
+    ...APP_DIRECTIVES,
+    PageNotFoundComponent
   ],
   providers: [
     // Logger

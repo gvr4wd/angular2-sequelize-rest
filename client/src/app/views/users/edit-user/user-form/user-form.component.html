@@ -1,15 +1,106 @@
-<form [formGroup]="userForm">
-  <div class="form-group">
-    <label class="center-block">First Name:
-      <input class="form-control" formControlName="firstName">
-    </label>
+<form action="" method="post" class="form-horizontal" [formGroup]="userForm">
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-right" for="login">Login</label>
+    <div class="col-md-9">
+      <input class="form-control" name="login" id="login" formControlName="login">
+    </div>
   </div>
-  <div class="form-group">
-    <label class="center-block">Last Name:
-      <input class="form-control" formControlName="lastName">
-    </label>
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-right" for="firstName">First Name</label>
+    <div class="col-md-9">
+      <input class="form-control" name="firstName" id="firstName" formControlName="firstName"
+             [ngClass]="{'is-invalid': firstName.errors}">
+      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="invalid-feedback">
+        <div *ngIf="firstName.errors?.required">
+          First Name is required
+        </div>
+      </div>
+    </div>
   </div>
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-right" for="lastName">Last Name</label>
+    <div class="col-md-9">
+      <input class="form-control" name="lastName" id="lastName" formControlName="lastName">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-right" for="email">Email</label>
+    <div class="col-md-9">
+      <input type="email" class="form-control" name="email" id="email" formControlName="email" autocomplete="">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-right" for="avatar">Avatar</label>
+    <div class="col-md-9">
+      <input class="form-control" name="avatar" id="avatar" formControlName="avatar">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-right" for="groups">Groups</label>
+    <div class="col-md-9" *ngIf="user">
+      <div *ngFor="let group of user.groups">
+                        <span class="badge badge-info">
+                            {{ group.groupName }}
+                        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-right" for="roles">Roles</label>
+    <div class="col-md-9" *ngIf="user">
+      <div *ngFor="let role of user.roles">
+                        <span class="badge badge-info">
+                            {{ role.roleName }}
+                        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-right" for="permissions">Permissions</label>
+    <div class="col-md-9" *ngIf="user">
+      {{user.permissions | json}}
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-right" for="preferences">Preferences</label>
+    <div class="col-md-9" *ngIf="user">
+      {{user.preference | json}}
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="offset-md-3 col-md-9 ">
+      <button type="submit" class="btn btn-sm btn-primary" [disabled]="userForm.status == 'INVALID'">
+        <i class="fa fa-dot-circle-o"></i> Submit
+      </button>
+      <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+    </div>
+  </div>
+
+
 </form>
+
 <p>Form value: {{ userForm.value | json }}</p>
 <p>Form status: {{ userForm.status | json }}</p>
+<!--<p>{{firstName.errors| json }}</p>-->
 <!--<p>Form status: {{ user | json }}</p>-->
+<!--public login: string = null,-->
+<!--public password: string = null,-->
+<!--public firstName: string = null,-->
+<!--public lastName: string = null,-->
+<!--public email: string = null,-->
+<!--public avatar: string = null,-->
+<!--public preferenceStr: string = null,-->
+<!--public jwtToken: string = null,-->
+<!--public permissions: object[] = [],-->
+<!--notifications: object[] = [],-->
+<!--public groups: Group[] = [],-->
+<!--public roles: Role[]-->

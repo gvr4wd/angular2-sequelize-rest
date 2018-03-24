@@ -23,8 +23,11 @@ export class UserFormComponent implements OnInit, OnChanges {
 
   createForm() {
     this.userForm = this.fb.group({
+      login: [{value:'', disabled: true}, Validators.required],
       firstName: ['', Validators.required],
-      lastName: ''
+      lastName: ['', Validators.required],
+      email: ['', Validators.required],
+      avatar: ['', Validators.required]
     });
   }
 
@@ -37,9 +40,16 @@ export class UserFormComponent implements OnInit, OnChanges {
     console.log(this.user);
     if (this.user) {
       this.userForm.setValue({
+        login: this.user.login,
         firstName: this.user.firstName,
-        lastName: this.user.lastName
+        lastName: this.user.lastName,
+        email: this.user.email,
+        avatar: this.user.avatar
       })
     }
+  }
+
+  get firstName() {
+    return this.userForm.get('firstName');
   }
 }

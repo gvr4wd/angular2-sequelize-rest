@@ -8,6 +8,7 @@ import {
 } from './containers';
 import {AuthGuard} from './services/auth-guard.service';
 import {HeaderLayoutComponent} from './containers/header-layout';
+import {PageNotFoundComponent} from './views/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
   {
@@ -83,19 +84,19 @@ export const routes: Routes = [
       }
     ]
   },
-  // {
-  //   path: 'register',
-  //   component: SimpleLayoutComponent,
-  //   data: {
-  //     title: 'Register'
-  //   },
-  //   children: [
-  //     {
-  //       path: '',
-  //       loadChildren: './views/register/register.module#RegisterModule',
-  //     }
-  //   ]
-  // },
+  {
+    path: 'register',
+    component: SimpleLayoutComponent,
+    data: {
+      title: 'Register'
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/register/register.module#RegisterModule',
+      }
+    ]
+  },
   {
     path: 'pages',
     component: SimpleLayoutComponent,
@@ -108,7 +109,8 @@ export const routes: Routes = [
         loadChildren: './views/pages/pages.module#PagesModule',
       }
     ]
-  }
+  },
+  {path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({
